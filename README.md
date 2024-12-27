@@ -11,6 +11,3 @@ Le programme utilise les classes PanDessin et RepNombres pour gérer la représe
 
 En résumé, ce programme fournit un outil simple et visuel pour représenter des nombres entiers et générer des images de ces représentations.
 
-
-Sources and related content
-

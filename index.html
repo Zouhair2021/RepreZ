@@ -11,16 +11,26 @@
             padding: 0;
             background-color: #f4f4f9;
             color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start; /* Changer de 'center' à 'flex-start' pour laisser le contenu s'étendre */
+            min-height: 100vh; /* Assurez-vous que la page couvre toute la hauteur */
+            overflow-y: auto; /* Permet le défilement si le contenu dépasse */
         }
         header {
             background-color: #007BFF;
             color: white;
             padding: 20px;
             text-align: center;
+            width: 100%;
         }
         main {
-            padding: 20px;
             text-align: center;
+            max-width: 800px;
+            padding: 20px;
+            width: 100%;
+            box-sizing: border-box;
         }
         footer {
             background-color: #333;
@@ -28,6 +38,7 @@
             text-align: center;
             padding: 10px;
             margin-top: 20px;
+            width: 100%;
         }
         a {
             color: #007BFF;
@@ -38,7 +49,7 @@
         }
         .button {
             display: inline-block;
-            margin: 20px auto;
+            margin: 20px;
             padding: 10px 20px;
             background-color: #007BFF;
             color: white;
@@ -49,6 +60,15 @@
         .button:hover {
             background-color: #0056b3;
         }
+        ul {
+            text-align: left;
+            margin: 0 auto;
+            display: inline-block;
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+        }
     </style>
 </head>
 <body>
@@ -58,12 +78,25 @@
     </header>
     <main>
         <h2>À propos de RepreZ-1.0</h2>
-        <p>RepreZ-1.0 est une application conçue pour améliorer votre productivité et faciliter vos tâches quotidiennes. Simple, rapide et intuitive, elle s'adapte à vos besoins.</p>
-        
+        <p>
+            Ce programme Java est une application de bureau qui permet de représenter visuellement des nombres entiers compris entre 0 et 999. Il utilise des images pour les centaines, les dizaines et les unités, et les affiche dans un panneau dédié. L'utilisateur peut définir une plage de nombres (minimum et maximum) et générer un nombre aléatoire dans cette plage. Le programme peut également capturer des images de la représentation visuelle du nombre et les enregistrer dans un dossier.
+        </p>
+
+        <p>Voici quelques fonctionnalités clés du programme :</p>
+
+        <ul>
+            <li><strong>Représentation visuelle des nombres</strong>: Le programme utilise des images pour représenter les centaines, les dizaines et les unités, ce qui permet une visualisation claire du nombre.</li>
+            <li><strong>Génération de nombres aléatoires</strong>: L'utilisateur peut définir une plage de nombres et générer un nombre aléatoire dans cette plage.</li>
+            <li><strong>Capture d'images</strong>: Le programme peut capturer des images de la représentation visuelle du nombre et les enregistrer dans un dossier.</li>
+            <li><strong>Suppression des images</strong>: L'utilisateur peut choisir de supprimer les images existantes dans le dossier de capture.</li>
+            <li><strong>Capture automatique</strong>: Le programme peut capturer automatiquement un nombre défini d'images de nombres aléatoires.</li>
+        </ul>
+
         <h2>Téléchargez l'application</h2>
-        <p>Pour installer l'application, cliquez sur le bouton ci-dessous :</p>
-        <a href="RepreZ-1.0.jar" class="button" download>Télécharger RepreZ-1.0</a>
-        
+        <p>Pour télécharger l'application, cliquez sur les boutons ci-dessous :</p>
+        <a href="RepreZ-1.0.jar" class="button" download>Télécharger RepreZ-1.0.jar</a>
+        <a href="RepreZ-1.0.msi" class="button" download>Télécharger l'installateur</a>
+
         <h2>Support</h2>
         <p>Vous avez des questions ou besoin d'aide ? Contactez-nous à <a href="mailto:support@reprez.com">support@reprez.com</a>.</p>
     </main>

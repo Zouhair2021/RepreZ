@@ -83,16 +83,6 @@ public class RepNombres extends JFrame implements ActionListener
         add(panelNb, "South");
     }
 
-    public static String getAppDataLocalPath() {
-        String localAppData = System.getenv("LOCALAPPDATA");
-        if (localAppData == null) {
-            // Fallback pour d'autres systèmes ou si LOCALAPPDATA n'est pas défini
-            localAppData = System.getProperty("user.home") +
-                    File.separator + "AppData" +
-                    File.separator + "Local";
-        }
-        return localAppData + File.separator + "RepreZ";
-    }
 
     @Override
     public void actionPerformed(ActionEvent e)
@@ -170,7 +160,7 @@ public class RepNombres extends JFrame implements ActionListener
         if (verifier())
         {
             Random random = new Random();
-            int n = random.nextInt(max - min + 1) + 1;
+            int n = random.nextInt(max - min + 1) + min;
             txtNombre.setText(n + "");
             init(n);
         }
@@ -198,29 +188,8 @@ public class RepNombres extends JFrame implements ActionListener
         if (booleanCapture == true)
         {
             PanDessin.dossier = chooseDirectory();
-            PanDessin.creationDossier();
-            UIManager.put("OptionPane.yesButtonText", "Oui");
-            UIManager.put("OptionPane.noButtonText", "Non");
+            optSupprimer();
 
-// Créer un son à partir d'un fichier audio système
-            Toolkit.getDefaultToolkit().beep();
-
-// Afficher la boîte de dialogue avec Non sélectionné par défaut
-            Object[] options = {"Oui", "Non"};
-            int choix = JOptionPane.showOptionDialog(this,
-                    "Voulez vous supprimer les fichiers images déjà existants dans ce dossier",
-                    "Confirmation",
-                    JOptionPane.YES_NO_OPTION,
-                    JOptionPane.WARNING_MESSAGE,
-                    null,
-                    options,
-                    options[1]); // Sélectionne "Non" par défaut
-            Toolkit.getDefaultToolkit().beep();
-            if (choix == JOptionPane.YES_OPTION)
-            {
-                panDessin.suppFichImages();
-                nombreCapture = 0;
-            }
         }
 
         panDessin.capture((nombreCapture + 1) + ".png");
@@ -232,14 +201,7 @@ public class RepNombres extends JFrame implements ActionListener
     public void actionAutoCapture()
     {
         PanDessin.dossier = chooseDirectory();
-        PanDessin.creationDossier();
-        int choix = JOptionPane.showConfirmDialog(this, "Les fichiers image " +
-                        "dans ce dossier vont être supprimés", "Confirmation",
-                JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-        if (choix == JOptionPane.YES_OPTION)
-            panDessin.suppFichImages();
-        else return;
-        panDessin.suppFichImages();
+        optSupprimer();
         if (verifier())
         {
             Random random = new Random();
@@ -290,6 +252,24 @@ public class RepNombres extends JFrame implements ActionListener
             worker.execute();
         }
         booleanCapture = true;
+    }
+    public void optSupprimer()
+    {
+        Toolkit.getDefaultToolkit().beep();
+        Object[] options = {"Oui", "Non"};
+        int choix = JOptionPane.showOptionDialog(this,
+                "Voulez vous supprimer les fichiers images déjà existants dans ce dossier",
+                "Confirmation",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE,
+                null,
+                options,
+                options[1]); // Sélectionne "Non" par défaut
+        if (choix == JOptionPane.YES_OPTION)
+        {
+            panDessin.suppFichImages();
+            nombreCapture = 0;
+        }
     }
     public  File chooseDirectory() {
         // Création d'une nouvelle instance de JFileChooser

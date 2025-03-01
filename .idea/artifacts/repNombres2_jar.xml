@@ -3,6 +3,7 @@
     <output-path>$PROJECT_DIR$/out/artifacts/repNombres2_jar</output-path>
     <root id="archive" name="repNombres2.jar">
       <element id="module-output" name="repNombres2" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/dependances/JTattoo-1.6.13.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>

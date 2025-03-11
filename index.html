@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RepreZ - Représentation visuelle des nombres</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2980b9;
+            --accent-color: #e74c3c;
+            --light-bg: #f8f9fa;
+            --dark-bg: #343a40;
+            --text-color: #333;
+            --light-text: #f8f9fa;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .tagline {
+            font-size: 1.4rem;
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.2s;
+            margin: 0.5rem;
+        }
+        
+        .cta-button:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+        
+        section {
+            margin-bottom: 4rem;
+        }
+        
+        h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            margin: 1.5rem 0 1rem;
+            color: var(--secondary-color);
+        }
+        
+        p {
+            margin-bottom: 1.2rem;
+            font-size: 1.1rem;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .feature-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .screenshots {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .screenshot {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .screenshot img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s;
+        }
+        
+        .screenshot:hover img {
+            transform: scale(1.02);
+        }
+        
+        .colors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .color-block {
+            height: 100px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .download-section {
+            background-color: var(--light-bg);
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .download-cta {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        footer {
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-links {
+            margin: 1rem 0;
+        }
+        
+        .footer-links a {
+            color: var(--light-text);
+            margin: 0 0.5rem;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .tagline {
+                font-size: 1.2rem;
+            }
+            
+            .screenshots {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>RepreZ 2.0</h1>
+            <p class="tagline">Visualisation pédagogique des nombres par blocs de place</p>
+            <a href="#download" class="cta-button">Télécharger</a>
+            <a href="#features" class="cta-button">Découvrir</a>
+        </div>
+    </header>
+    
+    <main>
+        <section id="intro">
+            <h2>Représentation visuelle des nombres</h2>
+            <p>RepreZ est une application éducative qui permet de visualiser les nombres de 0 à 9999 à l'aide de blocs représentant les milliers, centaines, dizaines et unités. Cette méthode de représentation visuelle est particulièrement efficace pour l'apprentissage du système décimal et de la numération de position.</p>
+            <p>Développée en Java, cette application offre une interface interactive permettant aux enseignants et aux élèves de générer, représenter et capturer des représentations visuelles de nombres.</p>
+        </section>
+        
+        <section id="features">
+            <h2>Fonctionnalités</h2>
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">🔢</div>
+                    <h3>Représentation par blocs</h3>
+                    <p>Visualisez les nombres sous forme de blocs colorés représentant les milliers, centaines, dizaines et unités pour une meilleure compréhension de la valeur positionnelle.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎲</div>
+                    <h3>Génération aléatoire</h3>
+                    <p>Générez des nombres aléatoires dans un intervalle défini pour créer rapidement des exercices variés.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📸</div>
+                    <h3>Capture d'écran intégrée</h3>
+                    <p>Capturez automatiquement les représentations pour créer des fiches d'exercices ou du matériel pédagogique.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3>Personnalisation des couleurs</h3>
+                    <p>Choisissez parmi 9 schémas de couleurs différents pour adapter la représentation visuelle à vos besoins pédagogiques.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⚙️</div>
+                    <h3>Mode plein écran</h3>
+                    <p>Utilisez le mode plein écran pour une meilleure présentation lors de démonstrations en classe.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Génération automatique</h3>
+                    <p>Créez rapidement un ensemble de représentations à l'aide de la fonction de capture automatique.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="screenshots">
+            <h2>Captures d'écran</h2>
+            <div class="screenshots">
+                <div class="screenshot">
+                    <img src="capture1.png" alt="RepreZ - Interface principale avec représentation de nombre">
+                </div>
+                <div class="screenshot">
+                    <img src="capture2.png" alt="RepreZ - Autre exemple de représentation numérique">
+                </div>
+                <div class="screenshot">
+                    <img src="capture3.png" alt="RepreZ - Fonctionnalités avancées de l'application">
+                </div>
+            </div>
+        </section>
+        
+        <section id="usage">
+            <h2>Comment utiliser RepreZ</h2>
+            
+            <h3>Représentation simple</h3>
+            <p>1. Saisissez un nombre entre 0 et 9999 dans le champ de texte</p>
+            <p>2. Cliquez sur "Représenter" pour visualiser le nombre</p>
+            <p>3. Utilisez "Capturer" pour enregistrer l'image dans le dossier des captures</p>
+            
+            <h3>Génération aléatoire</h3>
+            <p>1. Définissez les valeurs minimale et maximale pour l'intervalle</p>
+            <p>2. Cliquez sur "Générer" pour obtenir un nombre aléatoire dans cet intervalle</p>
+            <p>3. Le nombre est automatiquement représenté visuellement</p>
+            
+            <h3>Capture automatique</h3>
+            <p>1. Cochez "Capture auto" en haut de l'interface</p>
+            <p>2. Indiquez le nombre de captures souhaitées</p>
+            <p>3. Définissez l'intervalle min/max</p>
+            <p>4. Cliquez sur "Générer" pour lancer la génération et la capture automatique</p>
+        </section>
+        
+        <section id="download" class="download-section">
+            <h2 class="download-cta">Téléchargez RepreZ 2.0</h2>
+            <p>Application Windows prête à l'emploi</p>
+            <p>Version actuelle : 2.0</p>
+            <a href="RepreZ-2.0.exe" class="cta-button">Télécharger RepreZ (Windows)</a>
+            <p style="margin-top: 1.5rem;">RepreZ est un projet open source sous licence MIT</p>
+            <a href="https://github.com/Zouhair2021/RepreZ" class="cta-button" style="background-color: #333;">Voir sur GitHub</a>
+        </section>
+        
+        <section id="contact">
+            <h2>Contactez-nous</h2>
+            <p>Vous avez des questions, des suggestions ou besoin d'assistance? N'hésitez pas à nous contacter via les canaux suivants:</p>
+            
+            <div class="features" style="margin-top: 1.5rem;">
+                <div class="feature-card">
+                    <div class="feature-icon" style="color: #25D366;">📱</div>
+                    <h3>WhatsApp</h3>
+                    <p>Contactez-nous directement par WhatsApp pour une réponse rapide à vos questions.</p>
+                    <a href="https://wa.me/212659686664" class="cta-button" style="background-color: #25D366;">Contacter via WhatsApp</a>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon" style="color: #1877F2;">👥</div>
+                    <h3>Facebook</h3>
+                    <p>Suivez-nous sur Facebook pour les dernières actualités, tutoriels et mises à jour.</p>
+                    <a href="https://web.facebook.com/profile.php?id=61558486916972" class="cta-button" style="background-color: #1877F2;">Suivre sur Facebook</a>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <p>RepreZ 2.0 - Application éducative de représentation visuelle des nombres</p>
+            <p>Projet open source sous licence MIT</p>
+        </div>
+    </footer>
+</body>
+</html>

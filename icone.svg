@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Arrière-plan carré aux coins arrondis -->
+  <rect x="16" y="16" width="480" height="480" rx="80" ry="80" fill="#f8f9fa" stroke="#3498db" stroke-width="12"/>
+  
+  <!-- Grands chiffres stylisés en arrière-plan - supprimés pour plus d'espace -->
+  
+  <!-- Blocs de représentation centrés et agrandis -->
+  <!-- Millier - Cube 3D bleu -->
+  <polygon points="70,100 210,180 210,320 70,240" fill="#3498db" stroke="#2980b9" stroke-width="4"/>
+  <polygon points="210,180 330,120 330,260 210,320" fill="#2980b9" stroke="#2980b9" stroke-width="4"/>
+  <polygon points="70,100 190,40 330,120 210,180" fill="#4aa3df" stroke="#2980b9" stroke-width="4"/>
+  
+  <!-- Centaine - Plaque rouge -->
+  <rect x="200" y="350" width="180" height="120" rx="12" ry="12" fill="#e74c3c" stroke="#c0392b" stroke-width="4"/>
+  <rect x="200" y="350" width="180" height="30" rx="12" ry="12" fill="#ec7063" stroke-width="0"/>
+  
+  <!-- Dizaine - Barre jaune verticale -->
+  <rect x="400" y="240" width="45" height="180" rx="10" ry="10" fill="#f1c40f" stroke="#f39c12" stroke-width="4"/>
+  <rect x="400" y="240" width="45" height="30" rx="10" ry="10" fill="#f4d03f" stroke-width="0"/>
+  
+  <!-- Unité - Cube vert -->
+  <rect x="415" y="180" width="60" height="60" rx="8" ry="8" fill="#2ecc71" stroke="#27ae60" stroke-width="4"/>
+  <rect x="415" y="180" width="60" height="15" rx="8" ry="8" fill="#58d68d" stroke-width="0"/>
+
+  <!-- Contours plus épais pour une meilleure visibilité -->
+</svg>

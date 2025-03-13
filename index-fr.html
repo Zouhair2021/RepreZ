@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RepreZ - تمثيل بصري للأرقام</title>
+    <title>RepreZ - Représentation visuelle des nombres</title>
     <style>
         :root {
             --primary-color: #3498db;
@@ -19,20 +19,19 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Amiri', 'Segoe UI', Tahoma, serif;
         }
         
         body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: var(--text-color);
             background-color: var(--light-bg);
-            text-align: right;
         }
         
         .language-selector {
             position: absolute;
             top: 20px;
-            left: 30px;
+            right: 30px;
             z-index: 100;
         }
         
@@ -174,6 +173,24 @@
             transform: scale(1.02);
         }
         
+        .colors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .color-block {
+            height: 100px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
         .download-section {
             background-color: var(--light-bg);
             padding: 2rem;
@@ -200,6 +217,20 @@
             margin: 0 auto;
         }
         
+        .footer-links {
+            margin: 1rem 0;
+        }
+        
+        .footer-links a {
+            color: var(--light-text);
+            margin: 0 0.5rem;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
         @media (max-width: 768px) {
             h1 {
                 font-size: 2.5rem;
@@ -208,131 +239,135 @@
             .tagline {
                 font-size: 1.2rem;
             }
+            
+            .screenshots {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
     <header>
         <div class="language-selector">
-            <a href="index-fr.html" class="language-btn">Français</a>
+            <a href="index.html" class="language-btn">العربية</a>
         </div>
         <div class="header-content">
             <h1>RepreZ 2.0</h1>
-            <p class="tagline">تمثيل بصري تعليمي للأرقام باستخدام نظام القيمة المكانية</p>
-            <a href="#download" class="cta-button">تحميل البرنامج</a>
-            <a href="#features" class="cta-button">استكشاف المميزات</a>
+            <p class="tagline">Visualisation pédagogique des nombres par blocs de place</p>
+            <a href="#download" class="cta-button">Télécharger</a>
+            <a href="#features" class="cta-button">Découvrir</a>
         </div>
     </header>
     
     <main>
         <section id="intro">
-            <h2>تمثيل بصري للأرقام</h2>
-            <p>RepreZ هو تطبيق تعليمي يتيح تمثيل الأرقام من 0 إلى 9999 بصريًا باستخدام كتل تمثل الآلاف والمئات والعشرات والآحاد. هذه الطريقة في التمثيل البصري فعالة بشكل خاص لتعلم النظام العشري والقيمة المكانية.</p>
-            <p>تم تطوير هذا التطبيق باستخدام لغة جافا، ويوفر واجهة تفاعلية تسمح للمعلمين والمتعلمين بتوليد وتمثيل والتقاط تمثيلات بصرية للأرقام بكل سهولة.</p>
+            <h2>Représentation visuelle des nombres</h2>
+            <p>RepreZ est une application éducative qui permet de visualiser les nombres de 0 à 9999 à l'aide de blocs représentant les milliers, centaines, dizaines et unités. Cette méthode de représentation visuelle est particulièrement efficace pour l'apprentissage du système décimal et de la numération de position.</p>
+            <p>Développée en Java, cette application offre une interface interactive permettant aux enseignants et aux élèves de générer, représenter et capturer des représentations visuelles de nombres.</p>
         </section>
         
         <section id="features">
-            <h2>المميزات</h2>
+            <h2>Fonctionnalités</h2>
             <div class="features">
                 <div class="feature-card">
                     <div class="feature-icon">🔢</div>
-                    <h3>تمثيل بالكتل</h3>
-                    <p>عرض الأرقام على شكل كتل ملونة تمثل الآلاف والمئات والعشرات والآحاد لفهم أفضل للقيمة المكانية.</p>
+                    <h3>Représentation par blocs</h3>
+                    <p>Visualisez les nombres sous forme de blocs colorés représentant les milliers, centaines, dizaines et unités pour une meilleure compréhension de la valeur positionnelle.</p>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">🎲</div>
-                    <h3>توليد الأرقام عشوائياً</h3>
-                    <p>توليد أرقام عشوائية ضمن نطاق محدد لإنشاء تمارين متنوعة بسرعة.</p>
+                    <h3>Génération aléatoire</h3>
+                    <p>Générez des nombres aléatoires dans un intervalle défini pour créer rapidement des exercices variés.</p>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">📸</div>
-                    <h3>التقاط الشاشة</h3>
-                    <p>التقاط التمثيلات تلقائياً لإنشاء أوراق عمل أو مواد تعليمية.</p>
+                    <h3>Capture d'écran intégrée</h3>
+                    <p>Capturez automatiquement les représentations pour créer des fiches d'exercices ou du matériel pédagogique.</p>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">🎨</div>
-                    <h3>تخصيص الألوان</h3>
-                    <p>اختيار من بين 9 مخططات ألوان مختلفة لتكييف التمثيل البصري حسب الاحتياجات التعليمية.</p>
+                    <h3>Personnalisation des couleurs</h3>
+                    <p>Choisissez parmi 9 schémas de couleurs différents pour adapter la représentation visuelle à vos besoins pédagogiques.</p>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">⚙️</div>
-                    <h3>وضع ملء الشاشة</h3>
-                    <p>استخدام وضع ملء الشاشة لعرض أفضل أثناء العروض التقديمية في الفصل الدراسي.</p>
+                    <h3>Mode plein écran</h3>
+                    <p>Utilisez le mode plein écran pour une meilleure présentation lors de démonstrations en classe.</p>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">🔄</div>
-                    <h3>التوليد التلقائي</h3>
-                    <p>إنشاء مجموعة من التمثيلات بسرعة باستخدام وظيفة الالتقاط التلقائي.</p>
+                    <h3>Génération automatique</h3>
+                    <p>Créez rapidement un ensemble de représentations à l'aide de la fonction de capture automatique.</p>
                 </div>
             </div>
         </section>
         
         <section id="screenshots">
-            <h2>لقطات الشاشة</h2>
+            <h2>Captures d'écran</h2>
             <div class="screenshots">
                 <div class="screenshot">
-                    <img src="capture1.png" alt="RepreZ - الواجهة الرئيسية مع تمثيل للأرقام">
+                    <img src="capture1.png" alt="RepreZ - Interface principale avec représentation de nombre">
                 </div>
                 <div class="screenshot">
-                    <img src="capture2.png" alt="RepreZ - مثال آخر للتمثيل الرقمي">
+                    <img src="capture2.png" alt="RepreZ - Autre exemple de représentation numérique">
                 </div>
                 <div class="screenshot">
-                    <img src="capture3.png" alt="RepreZ - الميزات المتقدمة للتطبيق">
+                    <img src="capture3.png" alt="RepreZ - Fonctionnalités avancées de l'application">
                 </div>
             </div>
         </section>
         
         <section id="usage">
-            <h2>كيفية الاستخدام</h2>
+            <h2>Comment utiliser RepreZ</h2>
             
-            <h3>التمثيل البسيط</h3>
-            <p>1. أدخل رقماً بين 0 و 9999 في حقل النص</p>
-            <p>2. انقر على "تمثيل" لعرض الرقم بصرياً</p>
-            <p>3. استخدم "التقاط" لحفظ الصورة في مجلد الالتقاطات</p>
+            <h3>Représentation simple</h3>
+            <p>1. Saisissez un nombre entre 0 et 9999 dans le champ de texte</p>
+            <p>2. Cliquez sur "Représenter" pour visualiser le nombre</p>
+            <p>3. Utilisez "Capturer" pour enregistrer l'image dans le dossier des captures</p>
             
-            <h3>التوليد العشوائي</h3>
-            <p>1. حدد القيم الدنيا والقصوى للنطاق</p>
-            <p>2. انقر على "توليد" للحصول على رقم عشوائي ضمن هذا النطاق</p>
-            <p>3. يتم تمثيل الرقم بصرياً تلقائياً</p>
+            <h3>Génération aléatoire</h3>
+            <p>1. Définissez les valeurs minimale et maximale pour l'intervalle</p>
+            <p>2. Cliquez sur "Générer" pour obtenir un nombre aléatoire dans cet intervalle</p>
+            <p>3. Le nombre est automatiquement représenté visuellement</p>
             
-            <h3>الالتقاط التلقائي</h3>
-            <p>1. حدد "التقاط تلقائي" في أعلى الواجهة</p>
-            <p>2. أشر إلى عدد الالتقاطات المطلوبة</p>
-            <p>3. حدد النطاق الأدنى/الأقصى</p>
-            <p>4. انقر على "توليد" لبدء التوليد والالتقاط التلقائي</p>
+            <h3>Capture automatique</h3>
+            <p>1. Cochez "Capture auto" en haut de l'interface</p>
+            <p>2. Indiquez le nombre de captures souhaitées</p>
+            <p>3. Définissez l'intervalle min/max</p>
+            <p>4. Cliquez sur "Générer" pour lancer la génération et la capture automatique</p>
         </section>
         
         <section id="download" class="download-section">
-            <h2 class="download-cta">تحميل RepreZ 2.0</h2>
-            <p>تطبيق ويندوز جاهز للاستخدام</p>
-            <p>الإصدار الحالي: 2.0</p>
-            <a href="RepreZ-2.0.exe" class="cta-button">تحميل RepreZ (ويندوز)</a>
-            <p style="margin-top: 1.5rem;">RepreZ هو مشروع مفتوح المصدر تحت رخصة MIT</p>
-            <a href="https://github.com/Zouhair2021/RepreZ" class="cta-button" style="background-color: #333;">عرض على GitHub</a>
+            <h2 class="download-cta">Téléchargez RepreZ 2.0</h2>
+            <p>Application Windows prête à l'emploi</p>
+            <p>Version actuelle : 2.0</p>
+            <a href="RepreZ-2.0.exe" class="cta-button">Télécharger RepreZ (Windows)</a>
+            <p style="margin-top: 1.5rem;">RepreZ est un projet open source sous licence MIT</p>
+            <a href="https://github.com/Zouhair2021/RepreZ" class="cta-button" style="background-color: #333;">Voir sur GitHub</a>
         </section>
         
         <section id="contact">
-            <h2>اتصل بنا</h2>
-            <p>هل لديك أسئلة أو اقتراحات أو تحتاج إلى مساعدة؟ لا تتردد في التواصل معنا عبر القنوات التالية:</p>
+            <h2>Contactez-nous</h2>
+            <p>Vous avez des questions, des suggestions ou besoin d'assistance? N'hésitez pas à nous contacter via les canaux suivants:</p>
             
             <div class="features" style="margin-top: 1.5rem;">
                 <div class="feature-card">
                     <div class="feature-icon" style="color: #25D366;">📱</div>
-                    <h3>واتساب</h3>
-                    <p>اتصل بنا مباشرة عبر واتساب للحصول على رد سريع على أسئلتك.</p>
-                    <a href="https://wa.me/212659686664" class="cta-button" style="background-color: #25D366;">التواصل عبر واتساب</a>
+                    <h3>WhatsApp</h3>
+                    <p>Contactez-nous directement par WhatsApp pour une réponse rapide à vos questions.</p>
+                    <a href="https://wa.me/212659686664" class="cta-button" style="background-color: #25D366;">Contacter via WhatsApp</a>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon" style="color: #1877F2;">👥</div>
-                    <h3>فيسبوك</h3>
-                    <p>تابعنا على فيسبوك للحصول على آخر الأخبار والبرامج التعليمية والتحديثات.</p>
-                    <a href="https://web.facebook.com/profile.php?id=61558486916972" class="cta-button" style="background-color: #1877F2;">متابعة على فيسبوك</a>
+                    <h3>Facebook</h3>
+                    <p>Suivez-nous sur Facebook pour les dernières actualités, tutoriels et mises à jour.</p>
+                    <a href="https://web.facebook.com/profile.php?id=61558486916972" class="cta-button" style="background-color: #1877F2;">Suivre sur Facebook</a>
                 </div>
             </div>
         </section>
@@ -340,8 +375,8 @@
     
     <footer>
         <div class="footer-content">
-            <p>RepreZ 2.0 - تطبيق تعليمي للتمثيل البصري للأرقام</p>
-            <p>مشروع مفتوح المصدر تحت رخصة MIT</p>
+            <p>RepreZ 2.0 - Application éducative de représentation visuelle des nombres</p>
+            <p>Projet open source sous licence MIT</p>
         </div>
     </footer>
 </body>

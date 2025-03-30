@@ -66,19 +66,18 @@ public class PanDessin extends JPanel
                 boolean created = dossier.mkdir();
 
                 if (created) {
-                    System.out.println("Le dossier a été créé avec succès à : " + dossier.getAbsolutePath());
+                    System.out.println(MessagesBundle.getString("folder.created") + " " + dossier.getAbsolutePath());
                 } else {
-                    System.out.println("Impossible de créer le dossier");
+                    System.out.println(MessagesBundle.getString("folder.create.error"));
                 }
             } else {
-                System.out.println("Le dossier existe déjà à : " + dossier.getAbsolutePath());
+                System.out.println(MessagesBundle.getString("folder.exists") + " " + dossier.getAbsolutePath());
             }
 
         } catch (Exception e) {
             System.out.println("Une erreur s'est produite : " + e.getMessage());
             e.printStackTrace();
         }
-
     }
 
 
@@ -143,7 +142,7 @@ public class PanDessin extends JPanel
             });
         } catch (IOException e)
         {
-            JOptionPane.showMessageDialog(this, "Erreurs lors du suppreesion des fichiers");
+            JOptionPane.showMessageDialog(this, MessagesBundle.getString("folder.create.error"));
         }
     }
 

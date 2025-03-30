@@ -1,4 +1,3 @@
-
 package com.zouhair;
 
 import javax.swing.*;
@@ -20,8 +19,8 @@ public class RepNombres extends JFrame implements ActionListener
     private JLabel lblMin, lblMax, lblNombreCapture, lblNombreSaisiCapture, lblSepar;
     private JTextField txtMin, txtMax, txtNombre, txtNombreCapture;
     private JButton btnGenerer, btnRepresenter, btnCapture, btnOuvrireDossierCaptures;
-    private String messageFormatNbIncorrect = "Format de nombre incorrect";
-    private String messageNomreInterval = "Les nombres ne peuvent pas être négatifs ou supérieurs à 9999";
+    private String messageFormatNbIncorrect;
+    private String messageNomreInterval;
     private int nombreCapture = 0;
     private JCheckBox checkAutoCapture;
     private int min, max;
@@ -34,6 +33,7 @@ public class RepNombres extends JFrame implements ActionListener
     private JMenu menuOption;
     private JMenu menuCouleurs;
     private JMenu menuAffichage;
+    private JMenu menuLanguage;
     private JRadioButtonMenuItem itemBleu;
     private JRadioButtonMenuItem itemRouge;
     private JRadioButtonMenuItem itemJaune;
@@ -43,6 +43,9 @@ public class RepNombres extends JFrame implements ActionListener
     private JRadioButtonMenuItem itemNoir;
     private JRadioButtonMenuItem itemRose;
     private JRadioButtonMenuItem itemOrange;
+    private JRadioButtonMenuItem itemFrancais;
+    private JRadioButtonMenuItem itemEnglish;
+    private JRadioButtonMenuItem itemArabic;
     private JMenuItem itemPleinEcran;
     protected static String[] couleursBloc;
     private File dossier;
@@ -55,24 +58,25 @@ public class RepNombres extends JFrame implements ActionListener
     private String[] rouges = {"Thousand_Block_red.png", "Hundred_Block_red.png", "Ten_Block_red.png", "One_Block_red.png"};
     private String[] blancs = {"Thousand_Block_white.png", "Hundred_Block_white.png", "Ten_Block_white.png", "One_Block_white.png"};
     private String[] jaunes = {"Thousand_Block_yellow.png", "Hundred_Block_yellow.png", "Ten_Block_yellow.png", "One_Block_yellow.png"};
-    private String messageOptCapture = "Voulez vous supprimer les fichiers images déjà existants dans ce dossier";
-    private String messageOptAutoCapture = "Les fichiers images existants dans ce dossier vont être supprimés";
-    private String messageNombreCaptures = "Le nombre de capture demandé est trop élevé";
+    private String messageOptCapture;
+    private String messageOptAutoCapture;
+    private String messageNombreCaptures;
 
     public RepNombres()
     {
-        setTitle("RepreZ 2.0");
+        // Initialiser les messages avec la langue par défaut
+        setTitle(MessagesBundle.getString("app.title"));
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Image icon = Toolkit.getDefaultToolkit().getImage(RepNombres.class.getResource("/icons/numerique.png"));
+        Image icon = Toolkit.getDefaultToolkit().getImage(RepNombres.class.getResource("/icons/icon2.1.png"));
         setIconImage(icon);
         creationBarreMenu();
         couleursBloc = bleus;
         booleanCapture = true;
         panelAutoCapture = new JPanel();
-        checkAutoCapture = new JCheckBox("Capture auto");
+        checkAutoCapture = new JCheckBox(MessagesBundle.getString("auto.capture.checkbox"));
         checkAutoCapture.addActionListener(this);
-        lblNombreSaisiCapture = new JLabel("Nombre de captures ");
+        lblNombreSaisiCapture = new JLabel(MessagesBundle.getString("number.captures.label"));
         lblNombreSaisiCapture.setForeground(Color.LIGHT_GRAY);
         lblSepar = new JLabel("  ");
         lblSepar.setPreferredSize(new Dimension(20, 20));
@@ -93,21 +97,21 @@ public class RepNombres extends JFrame implements ActionListener
         panDessin.dossier = dossier;
         panel.add(panDessin);
         add(panel);
-        lblMin = new JLabel("Min");
-        lblMax = new JLabel("Max");
+        lblMin = new JLabel(MessagesBundle.getString("min.label"));
+        lblMax = new JLabel(MessagesBundle.getString("max.label"));
         txtMin = new JTextField(5);
         txtMin.setText("0");
         txtMax = new JTextField(5);
         txtMax.setText("9999");
         txtNombre = new JTextField(5);
         txtNombre.addActionListener(this);
-        btnGenerer = new JButton("Générer");
+        btnGenerer = new JButton(MessagesBundle.getString("generate.button"));
         btnGenerer.addActionListener(this);
-        btnRepresenter = new JButton("Représenter");
+        btnRepresenter = new JButton(MessagesBundle.getString("represent.button"));
         btnRepresenter.addActionListener(this);
-        btnCapture = new JButton("Capturer");
+        btnCapture = new JButton(MessagesBundle.getString("capture.button"));
         btnCapture.addActionListener(this);
-        btnOuvrireDossierCaptures = new JButton("Ouvrir dossier captures");
+        btnOuvrireDossierCaptures = new JButton(MessagesBundle.getString("open.folder.button"));
         btnOuvrireDossierCaptures.addActionListener(this);
         lblNombreCapture = new JLabel();
         panelNb = new JPanel();
@@ -123,26 +127,38 @@ public class RepNombres extends JFrame implements ActionListener
         panelNb.add(lblNombreCapture);
         add(panelNb, "South");
 
+        // Initialiser les messages d'erreur
+        messageFormatNbIncorrect = MessagesBundle.getString("error.number.format");
+        messageNomreInterval = MessagesBundle.getString("error.number.range");
+        messageNombreCaptures = MessagesBundle.getString("error.capture.limit");
+        messageOptCapture = MessagesBundle.getString("confirm.delete.files");
+        messageOptAutoCapture = MessagesBundle.getString("confirm.auto.delete");
+
+        // Ajuster l'orientation pour RTL si nécessaire
+        adjustComponentOrientation();
     }
 
 
     private void creationBarreMenu()
     {
         menuBar = new JMenuBar();
-        menuOption = new JMenu("Options");
-        menuCouleurs = new JMenu("Couleur");
-        menuAffichage = new JMenu("Affichage");
+        menuOption = new JMenu(MessagesBundle.getString("menu.options"));
+        menuCouleurs = new JMenu(MessagesBundle.getString("menu.color"));
+        menuAffichage = new JMenu(MessagesBundle.getString("menu.display"));
+        menuLanguage = new JMenu("Langue/Language/اللغة");
+
+        // Menu des couleurs
         ButtonGroup groupCoulours = new ButtonGroup();
-        itemBleu = new JRadioButtonMenuItem("Bleu");
-        itemRouge = new JRadioButtonMenuItem("Rouge");
-        itemJaune = new JRadioButtonMenuItem("Jaune");
-        itemPourpre = new JRadioButtonMenuItem("Pourpre");
-        itemVert = new JRadioButtonMenuItem("Vert");
-        itemBlanc = new JRadioButtonMenuItem("Blanc");
-        itemNoir = new JRadioButtonMenuItem("Noir");
-        itemRose = new JRadioButtonMenuItem("Rose");
-        itemOrange = new JRadioButtonMenuItem("Orange");
-        itemPleinEcran = new JMenuItem("Plein Ecran");
+        itemBleu = new JRadioButtonMenuItem(MessagesBundle.getString("color.blue"));
+        itemRouge = new JRadioButtonMenuItem(MessagesBundle.getString("color.red"));
+        itemJaune = new JRadioButtonMenuItem(MessagesBundle.getString("color.yellow"));
+        itemPourpre = new JRadioButtonMenuItem(MessagesBundle.getString("color.purple"));
+        itemVert = new JRadioButtonMenuItem(MessagesBundle.getString("color.green"));
+        itemBlanc = new JRadioButtonMenuItem(MessagesBundle.getString("color.white"));
+        itemNoir = new JRadioButtonMenuItem(MessagesBundle.getString("color.black"));
+        itemRose = new JRadioButtonMenuItem(MessagesBundle.getString("color.pink"));
+        itemOrange = new JRadioButtonMenuItem(MessagesBundle.getString("color.orange"));
+
         groupCoulours.add(itemBleu);
         groupCoulours.add(itemRouge);
         groupCoulours.add(itemJaune);
@@ -152,6 +168,7 @@ public class RepNombres extends JFrame implements ActionListener
         groupCoulours.add(itemNoir);
         groupCoulours.add(itemRose);
         groupCoulours.add(itemOrange);
+
         menuCouleurs.add(itemBleu);
         itemBleu.setSelected(true);
         menuCouleurs.add(itemRouge);
@@ -162,18 +179,47 @@ public class RepNombres extends JFrame implements ActionListener
         menuCouleurs.add(itemNoir);
         menuCouleurs.add(itemRose);
         menuCouleurs.add(itemOrange);
+
+        // Menu des langues
+        ButtonGroup groupLanguage = new ButtonGroup();
+        itemFrancais = new JRadioButtonMenuItem("Français");
+        itemEnglish = new JRadioButtonMenuItem("English");
+        itemArabic = new JRadioButtonMenuItem("العربية");
+
+        groupLanguage.add(itemFrancais);
+        groupLanguage.add(itemEnglish);
+        groupLanguage.add(itemArabic);
+
+        menuLanguage.add(itemFrancais);
+        menuLanguage.add(itemEnglish);
+        menuLanguage.add(itemArabic);
+
+        // Définir la langue actuelle
+        if (MessagesBundle.getCurrentLocale().getLanguage().equals("fr")) {
+            itemFrancais.setSelected(true);
+        } else if (MessagesBundle.getCurrentLocale().getLanguage().equals("en")) {
+            itemEnglish.setSelected(true);
+        } else if (MessagesBundle.getCurrentLocale().getLanguage().equals("ar")) {
+            itemArabic.setSelected(true);
+        }
+
+        // Menu plein écran
+        itemPleinEcran = new JMenuItem(MessagesBundle.getString("menu.fullscreen"));
+
+        // Ajouter les menus à la barre
         menuOption.add(menuCouleurs);
         menuAffichage.add(itemPleinEcran);
         menuBar.add(menuOption);
         menuBar.add(menuAffichage);
+        menuBar.add(menuLanguage);
         setJMenuBar(menuBar);
 
         ajoutEcouteursElemntsMenu();
-
     }
 
     private void ajoutEcouteursElemntsMenu()
     {
+        // Écouteur pour plein écran
         itemPleinEcran.addActionListener(ee ->
         {
             if (!isPleinEcran)
@@ -184,7 +230,7 @@ public class RepNombres extends JFrame implements ActionListener
                 setUndecorated(true);
                 setVisible(true);
                 GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow(this);
-                itemPleinEcran.setText("Restaurer");
+                itemPleinEcran.setText(MessagesBundle.getString("menu.restore"));
                 isPleinEcran = true;
             } else
             {
@@ -195,10 +241,12 @@ public class RepNombres extends JFrame implements ActionListener
                 setUndecorated(false);
                 setVisible(true);
                 setExtendedState(JFrame.MAXIMIZED_BOTH);
-                itemPleinEcran.setText("Plein Ecran");
+                itemPleinEcran.setText(MessagesBundle.getString("menu.fullscreen"));
                 isPleinEcran = false;
             }
         });
+
+        // Écouteurs pour les couleurs
         itemBleu.addActionListener(ee ->
         {
             panDessin.couleursBloc = bleus;
@@ -244,6 +292,96 @@ public class RepNombres extends JFrame implements ActionListener
             panDessin.couleursBloc = pourpres;
             panDessin.chargerImages();
         });
+
+        // Écouteurs pour les langues
+        itemFrancais.addActionListener(e -> {
+            MessagesBundle.setLocale(MessagesBundle.LOCALE_FR);
+            updateUILanguage();
+        });
+
+        itemEnglish.addActionListener(e -> {
+            MessagesBundle.setLocale(MessagesBundle.LOCALE_EN);
+            updateUILanguage();
+        });
+
+        itemArabic.addActionListener(e -> {
+            MessagesBundle.setLocale(MessagesBundle.LOCALE_AR);
+            updateUILanguage();
+        });
+    }
+
+    // Méthode pour mettre à jour l'interface après changement de langue
+    private void updateUILanguage() {
+        // Mettre à jour le titre de la fenêtre
+        setTitle(MessagesBundle.getString("app.title"));
+
+        // Mettre à jour les labels
+        lblMin.setText(MessagesBundle.getString("min.label"));
+        lblMax.setText(MessagesBundle.getString("max.label"));
+        lblNombreSaisiCapture.setText(MessagesBundle.getString("number.captures.label"));
+
+        // Mettre à jour les boutons
+        btnGenerer.setText(MessagesBundle.getString("generate.button"));
+        btnRepresenter.setText(MessagesBundle.getString("represent.button"));
+        btnCapture.setText(MessagesBundle.getString("capture.button"));
+        btnOuvrireDossierCaptures.setText(MessagesBundle.getString("open.folder.button"));
+
+        // Mettre à jour les menus
+        menuOption.setText(MessagesBundle.getString("menu.options"));
+        menuCouleurs.setText(MessagesBundle.getString("menu.color"));
+        menuAffichage.setText(MessagesBundle.getString("menu.display"));
+        itemPleinEcran.setText(isPleinEcran ?
+                MessagesBundle.getString("menu.restore") :
+                MessagesBundle.getString("menu.fullscreen"));
+
+        // Mettre à jour les options de couleur
+        itemBleu.setText(MessagesBundle.getString("color.blue"));
+        itemRouge.setText(MessagesBundle.getString("color.red"));
+        itemJaune.setText(MessagesBundle.getString("color.yellow"));
+        itemPourpre.setText(MessagesBundle.getString("color.purple"));
+        itemVert.setText(MessagesBundle.getString("color.green"));
+        itemBlanc.setText(MessagesBundle.getString("color.white"));
+        itemNoir.setText(MessagesBundle.getString("color.black"));
+        itemRose.setText(MessagesBundle.getString("color.pink"));
+        itemOrange.setText(MessagesBundle.getString("color.orange"));
+
+        // Mettre à jour la checkbox
+        checkAutoCapture.setText(MessagesBundle.getString("auto.capture.checkbox"));
+
+        // Mettre à jour les messages
+        messageFormatNbIncorrect = MessagesBundle.getString("error.number.format");
+        messageNomreInterval = MessagesBundle.getString("error.number.range");
+        messageNombreCaptures = MessagesBundle.getString("error.capture.limit");
+        messageOptCapture = MessagesBundle.getString("confirm.delete.files");
+        messageOptAutoCapture = MessagesBundle.getString("confirm.auto.delete");
+
+        // Ajuster le composant pour le RTL si nécessaire
+        adjustComponentOrientation();
+
+        // Rafraîchir l'interface
+        revalidate();
+        repaint();
+    }
+
+    // Méthode pour ajuster l'orientation des composants pour l'arabe (RTL)
+    private void adjustComponentOrientation() {
+        ComponentOrientation orientation = MessagesBundle.isRightToLeft() ?
+                ComponentOrientation.RIGHT_TO_LEFT :
+                ComponentOrientation.LEFT_TO_RIGHT;
+
+        // Appliquer l'orientation à tous les composants
+        applyOrientation(this, orientation);
+    }
+
+    // Méthode récursive pour appliquer l'orientation à tous les composants
+    private void applyOrientation(Container container, ComponentOrientation orientation) {
+        container.setComponentOrientation(orientation);
+        for (Component comp : container.getComponents()) {
+            comp.setComponentOrientation(orientation);
+            if (comp instanceof Container) {
+                applyOrientation((Container) comp, orientation);
+            }
+        }
     }
 
     @Override
@@ -281,8 +419,6 @@ public class RepNombres extends JFrame implements ActionListener
         {
             try
             {
-
-
                 Runtime.getRuntime().exec("explorer.exe " + dossier);
 
                 // Méthode 2 : Alternative avec ProcessBuilder
@@ -331,11 +467,7 @@ public class RepNombres extends JFrame implements ActionListener
                     panDessin.getGraphics().clearRect(0, 0, panDessin.getWidth(), panDessin.getHeight());
                 }
                 return false;
-
-
             }
-
-
         } catch (NumberFormatException exception)
         {
             JOptionPane.showMessageDialog(this, messageFormatNbIncorrect);
@@ -359,8 +491,6 @@ public class RepNombres extends JFrame implements ActionListener
             txtNombre.setText(n + "");
             init(n);
         }
-
-
     }
 
     private void actionRepresenter()
@@ -374,18 +504,15 @@ public class RepNombres extends JFrame implements ActionListener
         } catch (NumberFormatException exception)
         {
             JOptionPane.showMessageDialog(this, messageFormatNbIncorrect);
-
         }
     }
 
     private void actionCapturer()
     {
-
         File filePath;
         String fileName = (nombreCapture + 1) + ".png";
         if (!verifierChoixSuppressionImages(messageOptCapture))
         {
-
             int i = 1;
             do
             {
@@ -407,13 +534,12 @@ public class RepNombres extends JFrame implements ActionListener
             booleanCapture = false;
         } catch (Exception e)
         {
-            System.err.println("Erreur de capture : " + e.getMessage());
+            System.err.println(MessagesBundle.getString("capture.error") + " " + e.getMessage());
         }
     }
 
     private void actionAutoCapture()
     {
-
         if (verifier())
             startWorker();
         booleanCapture = true;
@@ -423,15 +549,14 @@ public class RepNombres extends JFrame implements ActionListener
     {
         if (booleanCapture == true)
         {
+            UIManager.put("OptionPane.yesButtonText", MessagesBundle.getString("confirm.yes"));
+            UIManager.put("OptionPane.noButtonText", MessagesBundle.getString("confirm.no"));
 
-            UIManager.put("OptionPane.yesButtonText", "Oui");
-            UIManager.put("OptionPane.noButtonText", "Non");
-
-// Créer un son à partir d'un fichier audio système
+            // Créer un son à partir d'un fichier audio système
             Toolkit.getDefaultToolkit().beep();
 
-// Afficher la boîte de dialogue avec Non sélectionné par défaut
-            Object[] options = {"Oui", "Non"};
+            // Afficher la boîte de dialogue avec Non sélectionné par défaut
+            Object[] options = {MessagesBundle.getString("confirm.yes"), MessagesBundle.getString("confirm.no")};
             int choix = JOptionPane.showOptionDialog(this,
                     message,
                     "Confirmation",
@@ -491,7 +616,6 @@ public class RepNombres extends JFrame implements ActionListener
 
                         try
                         {
-
                             SwingUtilities.invokeAndWait(() -> init(m));
                             Thread.sleep(100);
                             SwingUtilities.invokeAndWait(() -> panDessin.capture(currentIndex + ".png"));
@@ -513,14 +637,14 @@ public class RepNombres extends JFrame implements ActionListener
                 protected void done()
                 {
                     isRunning = false;
-                    btnGenerer.setText("Générer");
+                    btnGenerer.setText(MessagesBundle.getString("generate.button"));
                     try
                     {
                         get();
                         if (!isCancelled())
                         {
                             JOptionPane.showMessageDialog(RepNombres.this,
-                                    nombre + " images générées avec succès");
+                                    nombre + " " + MessagesBundle.getString("success.generation"));
                         }
                     } catch (InterruptedException | ExecutionException e)
                     {
@@ -528,13 +652,13 @@ public class RepNombres extends JFrame implements ActionListener
                     } catch (CancellationException e)
                     {
                         JOptionPane.showMessageDialog(RepNombres.this,
-                                "Le processus de génération a été arrêté",
-                                "Génération arrêtée",
+                                MessagesBundle.getString("process.stopped"),
+                                MessagesBundle.getString("generation.stopped"),
                                 JOptionPane.INFORMATION_MESSAGE);
                     }
                 }
             };
-            btnGenerer.setText("Annuler");
+            btnGenerer.setText(MessagesBundle.getString("confirm.no"));
             isRunning = true;
 
             btnGenerer.addActionListener(e ->
@@ -543,16 +667,10 @@ public class RepNombres extends JFrame implements ActionListener
                 {
                     worker.cancel(true);
                     //   isRunning = false;
-                    btnGenerer.setText("Générer");
+                    btnGenerer.setText(MessagesBundle.getString("generate.button"));
                 }
             });
             worker.execute();
         }
     }
-
-
 }
-
-
-
-
